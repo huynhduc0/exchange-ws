@@ -10,8 +10,8 @@ spec:
     istio: ingressgateway
   servers:
   - port:
-      number: 80
-      name: http
+      number: 8080
+      name: http-8080
       protocol: HTTP
     hosts:
     - "hihi.itmosvn.me"

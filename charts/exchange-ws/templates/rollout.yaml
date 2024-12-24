@@ -17,7 +17,9 @@ spec:
       - name: argocd-demo
         image: vanlahuynhduc/example-app:8.8.3-SNAPSHOT-b067bbfb2a253b147a714ef20544f3182d84e659
         ports:
-        - containerPort: 8080
+        - name: http-8080
+          containerPort: 8080
+  
   strategy:
     canary:
       maxSurge: 25%
