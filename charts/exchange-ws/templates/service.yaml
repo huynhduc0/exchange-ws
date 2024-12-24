@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}
 spec:
-  ports:
-  - port: 80
-    name: http-3003
-    targetPort: 3003
   selector:
     app: {{ .Release.Name }}
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+    - name: websocket
+      port: 3003
+      targetPort: 3003

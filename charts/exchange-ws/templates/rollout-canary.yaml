@@ -17,7 +17,9 @@ spec:
       - name: {{ .Release.Name }}
         image: {{ .Values.deployment.image.name }}:{{ .Values.deployment.image.tag }}
         ports:
-        - name: http-3003
+        - name: http-3000
+          containerPort: 3000
+        - name: ws-3003
           containerPort: 3003
   strategy:
     canary:
@@ -25,6 +27,5 @@ spec:
       maxUnavailable: 0
       steps:
       - setWeight: 10
-      - pause: {duration: 2m}
+      - pause: {duration: 1m}
       - setWeight: 20
-      - pause: {}

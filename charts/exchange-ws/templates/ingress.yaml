@@ -27,7 +27,7 @@ spec:
               service:
                 name: {{ .Release.Name }}
                 port:
-                  number: 3003
+                  number: 3000
           - path: /ws
             pathType: Prefix
             backend:
