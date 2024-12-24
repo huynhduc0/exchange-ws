@@ -7,7 +7,7 @@ on:
 env:
   DOCKER_REGISTRY: docker.io
   DOCKER_IMAGE_NAME: vanlahuynhduc/exchange-ws
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
       - name: Build the Docker image
         env:
           DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
-          DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+          DOCKER_IMAGE_NAME: ${{ env.DOCKER_IMAGE_NAME }}
           VERSION: ${{ env.VERSION }}
           GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
         run: |
@@ -47,7 +47,7 @@ jobs:
       - name: Push the Docker image
         env:
           DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
-          DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+          DOCKER_IMAGE_NAME: ${{ env.DOCKER_IMAGE_NAME }}
           VERSION: ${{ env.VERSION }}
           GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
         run: |
