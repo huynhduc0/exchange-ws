@@ -27,7 +27,6 @@ spec:
               service:
                 name: {{ .Release.Name }}
                 port:
-                  name: http
                   number: 3000
           - path: /ws
             pathType: Prefix
@@ -35,5 +34,4 @@ spec:
               service:
                 name: {{ .Release.Name }}
                 port:
-                  name: ws
                   number: 3003
