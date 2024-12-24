@@ -4,7 +4,6 @@ metadata:
   name: argocd-demo
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: argocd-demo
@@ -14,8 +13,8 @@ spec:
         app: argocd-demo
     spec:
       containers:
-      - image: vanlahuynhduc/itmo-ops-test
-        name: itmo-ops-test
+      - image: vanlahuynhduc/example-app:8.8.3-SNAPSHOT-b067bbfb2a253b147a714ef20544f3182d84e659
+        name: argocd-demo
         ports:
         - containerPort: 80
         resources:
