@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: itmo-ops-test
+  name: argocd-demo
 spec:
   ports:
   - port: 80
     targetPort: 8080
   selector:
-    app: itmo-ops-test
+    app: argocd-demo
