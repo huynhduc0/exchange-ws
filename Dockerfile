@@ -1,5 +1,5 @@
 # Stage 1: Build the NestJS application
-FROM --platform=linux/arm64 node:16 AS builder
+FROM arm64v8/node:16 AS builder
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
