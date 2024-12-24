@@ -4,6 +4,16 @@ metadata:
   name: {{ .Release.Name }}-ig
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/proxy-redirect-from: "http"
+    nginx.ingress.kubernetes.io/proxy-redirect-to: "http"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
+    nginx.ingress.kubernetes.io/connection-upgrade: "true"
 spec:
   ingressClassName: nginx
   rules:
@@ -11,6 +21,13 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}
+                port:
+                  number: 3003
+          - path: /ws
             pathType: Prefix
             backend:
               service:

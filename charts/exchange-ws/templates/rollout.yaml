@@ -3,7 +3,7 @@ kind: Rollout
 metadata:
   name: exchange-ws-rollout
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: {{ .Release.Name }}
@@ -19,7 +19,6 @@ spec:
         ports:
         - name: http-3003
           containerPort: 3003
-  
   strategy:
     canary:
       maxSurge: 25%
