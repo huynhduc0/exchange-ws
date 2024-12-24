@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: exchange-ws-rollout-stable
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        version: stable
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: {{ .Values.deployment.image.name }}:{{ .Values.deployment.image.tag }}
+        ports:
+        - name: http-3003
+          containerPort: 3003
+  strategy:
+    canary:
+      maxSurge: 25%
+      maxUnavailable: 0
+      steps:
+      - setWeight: 100

@@ -1,28 +1,28 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ .Release.Name }}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: {{ .Release.Name }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Release.Name }}
-        version: stable
-    spec:
-      containers:
-      - image: {{ .Values.deployment.image.name }}:{{ .Values.deployment.image.tag }}
-        name: {{ .Release.Name }}
-        ports:
-        - name: http-3003
-          containerPort: 3003
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "100m"
-          limits:
-            memory: "512Mi"
-            cpu: "200m"
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: {{ .Release.Name }}
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: {{ .Release.Name }}
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ .Release.Name }}
+#         version: stable
+#     spec:
+#       containers:
+#       - image: {{ .Values.deployment.image.name }}:{{ .Values.deployment.image.tag }}
+#         name: {{ .Release.Name }}
+#         ports:
+#         - name: http-3003
+#           containerPort: 3003
+#         resources:
+#           requests:
+#             memory: "256Mi"
+#             cpu: "100m"
+#           limits:
+#             memory: "512Mi"
+#             cpu: "200m"
