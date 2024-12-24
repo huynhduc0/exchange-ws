@@ -24,6 +24,7 @@ spec:
             number: 3003
           subset: canary
         weight: 20
+      websocketUpgrade: true
     headers:
       request:
         add:
