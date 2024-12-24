@@ -22,8 +22,7 @@ async function bootstrap() {
     console.log(`Subscribing client to exchange: ${exchange}, pair: ${pair}`);
     webSocketService.subscribe(client, exchange, pair);
     client.on('message', (message) => {
-      console.log('Received message:', message.toString('utf-8'));
-      webSocketService.subscribe(client, exchange, pair);
+      // console.log('Received message:', message.toString('utf-8'));
     });
 
     client.on('disconnect', () => {

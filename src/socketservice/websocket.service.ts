@@ -46,10 +46,11 @@ export class WebSocketService {
 
   private handleMessage(client: Socket, data: ExchangeData) {
     const timestamp = new Date().toISOString();
-    client.send(JSON.stringify(data));
+    const message = `[${timestamp}] Exchange: ${data.exchange}, Market Pair: ${data.pair}, Price: ${data.price}`;
+    client.send(message);
   }
   private handleError(client: Socket, error: any) {
     this.logger.error(`Error on WebSocket: ${error.message}`);
-    client.send('error', error);
+    client.send(error.message);
   }
 }

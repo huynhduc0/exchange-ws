@@ -20,7 +20,6 @@ export const BybitStrategy: Strategy = {
           const json = JSON.parse(data.toString());
           if (json.type === 'snapshot' && json.data && json.data[0]) {
             const end = parseFloat(json.data[0].high);
-            console.log(`Received data from Bybit: ${end}`);
             onMessage({ exchange: 'Bybit', pair, price: end });
           }
         } catch (err) {
@@ -46,6 +45,8 @@ export const BybitStrategy: Strategy = {
     const reconnect = (() => {
       let retries = 0;
       const maxRetries = 5;
+      const timestamp = new Date().toISOString();
+      onError({ message: `[${timestamp}] Error reconnecting to Bybit, Market Pair: ${pair}: Error `});
       const reconnect = () => {
         if (retries < maxRetries) {
           const delay = Math.min(5000, Math.pow(2, retries) * 1000); // Exponential backoff with a max of 5s
