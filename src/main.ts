@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import config from 'config.json';
-import { WebSocketService } from './websocket/websocket.service';
+import { WebSocketService } from './socketservice/websocket.service';
 import { Server } from 'socket.io';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { IoAdapter } from '@nestjs/platform-socket.io';
