@@ -7,6 +7,7 @@ spec:
   selector:
     matchLabels:
       app: argocd-demo
+      version: canary
   template:
     metadata:
       labels:
