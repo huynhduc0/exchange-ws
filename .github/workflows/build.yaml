@@ -39,7 +39,7 @@ jobs:
         id: vars
         run: echo "GITHUB_SHA_SHORT=${GITHUB_SHA::8}" >> $GITHUB_ENV
 
-      - name: Build the Docker image
+      - name: Build and push the Docker image
         env:
           DOCKER_SERVER: ${{ env.DOCKER_SERVER }}
           DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
@@ -47,17 +47,7 @@ jobs:
           VERSION: ${{ env.VERSION }}
           GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
         run: |
-          docker build . -t $DOCKER_SERVER/$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
-
-      - name: Push the Docker image
-        env:
-          DOCKER_SERVER: ${{ env.DOCKER_SERVER }}
-          DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
-          DOCKER_IMAGE_NAME: ${{ env.DOCKER_IMAGE_NAME }}
-          VERSION: ${{ env.VERSION }}
-          GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
-        run: |
-          docker push $DOCKER_SERVER/$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
+          docker buildx build --platform linux/arm/v7 -t $DOCKER_SERVER/$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT --push .
 
       - name: Update chart values
         run: |
