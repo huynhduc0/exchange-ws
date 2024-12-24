@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: argocd-demo-gateway
-  namespace: default
+  namespace: dev
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
