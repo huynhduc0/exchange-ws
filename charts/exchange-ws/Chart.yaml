@@ -1,0 +1,4 @@
+apiVersion: v1
+name: exchange-ws
+description: Duc Truong Test
+version: 1.0.0
