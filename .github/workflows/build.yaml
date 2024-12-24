@@ -52,3 +52,22 @@ jobs:
           GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
         run: |
           docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
+
+      - name: Update chart values
+        run: |
+          sed -i "s|name:.*|name: $DOCKER_IMAGE_NAME|" values.yaml
+          sed -i "s|tag:.*|tag: $VERSION-$GITHUB_SHA_SHORT|" values.yaml
+
+      - name: Commit and push changes to dev branch
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout dev
+          git add values.yaml
+          git commit -m "Update chart values with new image tag"
+          git push origin dev
+
+      - name: Create a tag to trigger ArgoCD
+        run: |
+          git tag $DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
+          git push origin $DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
