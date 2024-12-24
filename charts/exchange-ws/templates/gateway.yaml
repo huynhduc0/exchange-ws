@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: argocd-demo-gateway
+  name: {{ .Release.Name }}-gateway
   namespace: dev
   annotations:
     argocd.argoproj.io/sync-wave: "0"
@@ -10,8 +10,8 @@ spec:
     istio: ingressgateway
   servers:
   - port:
-      number: 8080
-      name: http-8080
+      number: 3001
+      name: http-3001
       protocol: HTTP
     hosts:
     - "hihi.itmosvn.me"

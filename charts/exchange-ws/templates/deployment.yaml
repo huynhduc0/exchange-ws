@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argocd-demo
+  name: {{ .Release.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: argocd-demo
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: argocd-demo
+        app: {{ .Release.Name }}
         version: stable
     spec:
       containers:
-      - image: vanlahuynhduc/example-app:8.8.3-SNAPSHOT-b067bbfb2a253b147a714ef20544f3182d84e659
-        name: argocd-demo
+      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        name: {{ .Release.Name }}
         ports:
-        - name: http-8080
-          containerPort: 8080
+        - name: http-3001
+          containerPort: 3001
         resources:
           requests:
             memory: "256Mi"

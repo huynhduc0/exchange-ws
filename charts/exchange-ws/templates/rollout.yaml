@@ -6,19 +6,19 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: argocd-demo
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: argocd-demo
+        app: {{ .Release.Name }}
         version: canary
     spec:
       containers:
-      - name: argocd-demo
+      - name: {{ .Release.Name }}
         image: vanlahuynhduc/example-app:8.8.3-SNAPSHOT-b067bbfb2a253b147a714ef20544f3182d84e659
         ports:
-        - name: http-8080
-          containerPort: 8080
+        - name: http-3001
+          containerPort: 3001
   
   strategy:
     canary:
