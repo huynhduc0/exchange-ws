@@ -20,11 +20,10 @@ export class WebSocketConnection implements OnGatewayConnection, OnGatewayDiscon
     console.log(`URL: ${url}`);
     console.log('Connected'+ url);
     if (url) {
-      // Phân tích URL để lấy query parameters
       const query = parse(url, true).query;
       const exchange = Array.isArray(query.exchange) ? query.exchange[0] : query.exchange;
-      const pair = Array.isArray(query.pair) ? query.pair[0] : query.pair;
-      
+      let pair = Array.isArray(query.pair) ? query.pair[0] : query.pair;
+      pair = pair.replace('/', ''); 
       console.log('Parsed query:', query);
       console.log(`Exchange: ${exchange}, Pair: ${pair}`);
       this.websocketService.subscribe(client, exchange, pair);
@@ -40,5 +39,6 @@ export class WebSocketConnection implements OnGatewayConnection, OnGatewayDiscon
   @SubscribeMessage('subscribe')
   handleSubscribe(client: Socket, @MessageBody() data: { exchange: string, pair: string }) {
     this.websocketService.subscribe(client, data.exchange, data.pair);
+    client.emit('price', { exchange: data.exchange, pair: data.pair, price: 0 });
   }
 }

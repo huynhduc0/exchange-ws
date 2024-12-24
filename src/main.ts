@@ -6,13 +6,12 @@ import { WebSocketServer } from 'ws';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000); // Change this to 3000 to avoid conflict with WebSocket port
+  await app.listen(3000);
 
   const webSocketService = app.get(WebSocketService);
   const defaultExchangeName = config.exchange.name;
   const defaultPair = config.exchange.pair;
 
-  // Create a WebSocket server
   const io = new WebSocketServer({ port: 3003 });
   io.on('connection', (client, req) => {
     console.log('Client connected');
@@ -22,6 +21,10 @@ async function bootstrap() {
 
     console.log(`Subscribing client to exchange: ${exchange}, pair: ${pair}`);
     webSocketService.subscribe(client, exchange, pair);
+    client.on('message', (message) => {
+      console.log('Received message:', message.toString('utf-8'));
+      webSocketService.subscribe(client, exchange, pair);
+    });
 
     client.on('disconnect', () => {
       console.log('Client disconnected');
