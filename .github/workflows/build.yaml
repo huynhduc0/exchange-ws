@@ -5,8 +5,9 @@ on:
     branches:
       - main
 env:
-  DOCKER_REGISTRY: docker.io
-  DOCKER_IMAGE_NAME: vanlahuynhduc/exchange-ws
+  DOCKER_SERVER: docker.io
+  DOCKER_REGISTRY: vanlahuynhduc
+  DOCKER_IMAGE_NAME: exchange-ws
 
 permissions:
   contents: write
@@ -40,25 +41,27 @@ jobs:
 
       - name: Build the Docker image
         env:
+          DOCKER_SERVER: ${{ env.DOCKER_SERVER }}
           DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
           DOCKER_IMAGE_NAME: ${{ env.DOCKER_IMAGE_NAME }}
           VERSION: ${{ env.VERSION }}
           GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
         run: |
-          docker build . -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
+          docker build . -t $DOCKER_SERVER/$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
 
       - name: Push the Docker image
         env:
+          DOCKER_SERVER: ${{ env.DOCKER_SERVER }}
           DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
           DOCKER_IMAGE_NAME: ${{ env.DOCKER_IMAGE_NAME }}
           VERSION: ${{ env.VERSION }}
           GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
         run: |
-          docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
+          docker push $DOCKER_SERVER/$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
 
       - name: Update chart values
         run: |
-          sed -i "s|name:.*|name: $DOCKER_IMAGE_NAME|" charts/exchange-ws/values.yaml
+          sed -i "s|name:.*|name: $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME|" charts/exchange-ws/values.yaml
           sed -i "s|tag:.*|tag: $VERSION-$GITHUB_SHA_SHORT|" charts/exchange-ws/values.yaml
 
       - name: Commit and push changes to main branch
