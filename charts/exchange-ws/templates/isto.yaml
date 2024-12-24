@@ -24,6 +24,8 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: argocd-demo-destinationrule
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   host: argocd-demo
   subsets:
