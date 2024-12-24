@@ -1,11 +1,11 @@
 deployment:
   image:
-    name:
-    tag:
+    name: vanlahuynhduc/exchange-ws
+    tag: 0.0.1-668f66cb
     repository:
 imageCredentials:
   registry: https://index.docker.io/v1/
-  username:
+  username: vanlahuynhduc/exchange-ws
   password:
 replicas:
   min: 1
