@@ -55,8 +55,8 @@ jobs:
 
       - name: Update chart values
         run: |
-          sed -i "s|name:.*|name: $DOCKER_IMAGE_NAME|" values.yaml
-          sed -i "s|tag:.*|tag: $VERSION-$GITHUB_SHA_SHORT|" values.yaml
+          sed -i "s|name:.*|name: $DOCKER_IMAGE_NAME|" charts/exchange-ws/values.yaml
+          sed -i "s|tag:.*|tag: $VERSION-$GITHUB_SHA_SHORT|" charts/exchange-ws/values.yaml
 
       - name: Commit and push changes to dev branch
         run: |
