@@ -16,13 +16,13 @@ spec:
       - name: argocd-demo
         image: vanlahuynhduc/example-app:8.8.3-SNAPSHOT-b067bbfb2a253b147a714ef20544f3182d84e659
         ports:
-        - containerPort: 80
+        - containerPort: 8080
   strategy:
     canary:
       maxSurge: 25%
       maxUnavailable: 0
       steps:
       - setWeight: 10
-      - pause: {duration: 1h}
+      - pause: {duration: 5m}
       - setWeight: 20
       - pause: {}
