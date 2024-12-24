@@ -9,9 +9,9 @@ spec:
   selector:
     istio: ingressgateway
   servers:
-  - port:
-      number: 3003
-      name: ws-3003
-      protocol: HTTP
-    hosts:
-    - "hihi.itmosvn.me"
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "hihi.itmosvn.me"

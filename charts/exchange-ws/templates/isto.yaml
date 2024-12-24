@@ -8,24 +8,49 @@ spec:
   gateways:
   - {{ .Release.Name }}-gateway
   http:
-  - route:
-    - destination:
-        host: {{ .Release.Name }}
-        subset: stable
-      weight: 80
-    - destination:
-        host: {{ .Release.Name }}
-        subset: canary
-      weight: 20
+  - match:
+      - uri:
+          prefix: "/ws"
+    route:
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3003
+          subset: stable
+        weight: 80
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3003
+          subset: canary
+        weight: 20
+    headers:
+      request:
+        add:
+          Connection: "upgrade"
+          Upgrade: "websocket"
+  - match:
+      - uri:
+          prefix: "/"
+    route:
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3000
+          subset: stable
+        weight: 80
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3000
+          subset: canary
+        weight: 20
 
 ---
-
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: {{ .Release.Name }}-destinationrule
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   host: {{ .Release.Name }}
   subsets:
