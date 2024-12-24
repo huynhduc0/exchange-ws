@@ -14,6 +14,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
     nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
     nginx.ingress.kubernetes.io/connection-upgrade: "true"
+    nginx.ingress.kubernetes.io/websocket-services: "{{ .Release.Name }}"
 spec:
   ingressClassName: nginx
   rules:
