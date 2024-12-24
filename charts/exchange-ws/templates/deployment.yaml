@@ -14,7 +14,7 @@ spec:
         version: stable
     spec:
       containers:
-      - image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
+      - image: {{ .Values.deployment.image.name }}:{{ .Values.deployment.image.tag }}
         name: {{ .Release.Name }}
         ports:
         - name: http-3001
