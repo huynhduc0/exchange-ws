@@ -7,11 +7,11 @@ spec:
   selector:
     matchLabels:
       app: argocd-demo
-      version: canary
   template:
     metadata:
       labels:
         app: argocd-demo
+        version: canary
     spec:
       containers:
       - name: argocd-demo
