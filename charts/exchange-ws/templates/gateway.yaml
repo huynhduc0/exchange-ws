@@ -10,8 +10,8 @@ spec:
     istio: ingressgateway
   servers:
   - port:
-      number: 3001
-      name: http-3001
+      number: 3003
+      name: http-3003
       protocol: HTTP
     hosts:
     - "hihi.itmosvn.me"
