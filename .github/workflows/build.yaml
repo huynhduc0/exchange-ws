@@ -60,8 +60,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout dev
-          git add values.yaml
+          git checkout -b dev || git checkout dev
+          git add charts/exchange-ws/values.yaml
           git commit -m "Update chart values with new image tag"
           git push origin dev
 
