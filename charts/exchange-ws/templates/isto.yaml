@@ -1,81 +1,81 @@
-# apiVersion: networking.istio.io/v1alpha3
-# kind: Gateway
-# metadata:
-#   name: {{ .Release.Name }}-gateway
-#   namespace: dev
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "0"
-# spec:
-#   selector:
-#     istio: ingressgateway
-#   servers:
-#     - port:
-#         number: 80
-#         name: http
-#         protocol: HTTP
-#       hosts:
-#         - "hihi.itmosvn.me"
-# ---
-# apiVersion: networking.istio.io/v1alpha3
-# kind: VirtualService
-# metadata:
-#   name: {{ .Release.Name }}-virtualservice
-# spec:
-#   hosts:
-#   - "hihi.itmosvn.me"
-#   gateways:
-#   - {{ .Release.Name }}-gateway
-#   http:
-#   - match:
-#       - uri:
-#           prefix: "/ws"
-#     route:
-#       - destination:
-#           host: {{ .Release.Name }}
-#           port:
-#             number: 3003
-#           subset: stable
-#         weight: 80
-#       - destination:
-#           host: {{ .Release.Name }}
-#           port:
-#             number: 3003
-#           subset: canary
-#         weight: 20
-#     websocketUpgrade: true
-#     headers:
-#       request:
-#         add:
-#           Connection: "upgrade"
-#           Upgrade: "websocket"
-#   - match:
-#       - uri:
-#           prefix: "/"
-#     route:
-#       - destination:
-#           host: {{ .Release.Name }}
-#           port:
-#             number: 3000
-#           subset: stable
-#         weight: 80
-#       - destination:
-#           host: {{ .Release.Name }}
-#           port:
-#             number: 3000
-#           subset: canary
-#         weight: 20
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ .Release.Name }}-gateway
+  namespace: dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "hihi.itmosvn.me"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Release.Name }}-virtualservice
+spec:
+  hosts:
+  - "hihi.itmosvn.me"
+  gateways:
+  - {{ .Release.Name }}-gateway
+  http:
+  - match:
+      - uri:
+          prefix: "/ws"
+    route:
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3003
+          subset: stable
+        weight: 80
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3003
+          subset: canary
+        weight: 20
+    websocketUpgrade: true
+    headers:
+      request:
+        add:
+          Connection: "upgrade"
+          Upgrade: "websocket"
+  - match:
+      - uri:
+          prefix: "/"
+    route:
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3000
+          subset: stable
+        weight: 80
+      - destination:
+          host: {{ .Release.Name }}
+          port:
+            number: 3000
+          subset: canary
+        weight: 20
 
-# ---
-# apiVersion: networking.istio.io/v1alpha3
-# kind: DestinationRule
-# metadata:
-#   name: {{ .Release.Name }}-destinationrule
-# spec:
-#   host: {{ .Release.Name }}
-#   subsets:
-#   - name: stable
-#     labels:
-#       version: stable
-#   - name: canary
-#     labels:
-#       version: canary
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ .Release.Name }}-destinationrule
+spec:
+  host: {{ .Release.Name }}
+  subsets:
+  - name: stable
+    labels:
+      version: stable
+  - name: canary
+    labels:
+      version: canary
