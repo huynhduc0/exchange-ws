@@ -78,8 +78,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git tag $DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git $DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT
+          git tag $DOCKER_IMAGE_NAME-$VERSION-$GITHUB_SHA_SHORT
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git $DOCKER_IMAGE_NAME-$VERSION-$GITHUB_SHA_SHORT
 
       - name: Merge main to dev branch
         env:
