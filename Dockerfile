@@ -9,6 +9,8 @@ RUN npm run build
 # Stage 2: Run the NestJS application
 FROM arm32v7/node:16-alpine
 WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app .
+COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/node_modules ./node_modules
+COPY --from=builder /usr/src/app/package*.json ./
 EXPOSE 3000 3003
 CMD ["node", "dist/main.js"]
