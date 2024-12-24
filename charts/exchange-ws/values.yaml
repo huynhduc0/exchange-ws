@@ -1,7 +1,7 @@
 deployment:
   image:
     name: vanlahuynhduc/exchange-ws
-    tag: 0.0.2-56b076c7
+    tag: 0.0.2-9a253ad9
     repository:
 imageCredentials:
   registry: https://index.docker.io/v1/
