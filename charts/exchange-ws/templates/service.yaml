@@ -6,9 +6,9 @@ spec:
   selector:
     app: {{ .Release.Name }}
   ports:
-    - name: http
+    - name: http-3000
       port: 3000
       targetPort: 3000
-    - name: websocket
+    - name: ws-3003
       port: 3003
       targetPort: 3003

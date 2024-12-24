@@ -11,7 +11,7 @@ spec:
   servers:
   - port:
       number: 3003
-      name: http-3003
+      name: ws-3003
       protocol: HTTP
     hosts:
     - "hihi.itmosvn.me"
