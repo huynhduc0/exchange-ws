@@ -17,7 +17,7 @@ async function bootstrap() {
   const defaultPair = config.exchange.pair;
 
   // Create a WebSocket server
-  const io = new WebSocketServer({ port: 3999 });
+  const io = new WebSocketServer({ port: 3003 });
   io.on('connection', (client, req) => {
     console.log('Client connected');
     const url = new URL(req.url, `http://${req.headers.host}`);
