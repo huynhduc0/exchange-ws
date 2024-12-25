@@ -48,6 +48,10 @@ spec:
       - setWeight: 10
       - pause: {duration: 1m}
       - setWeight: 20
+      trafficRouting:
+        istio:
+          virtualService:
+            name: {{ .Release.Name }}-virtualservice
   progressDeadlineSeconds: 600
   analysis:
     templates:
