@@ -32,7 +32,7 @@ jobs:
       - name: Get short SHA
         id: vars
         run: |
-          GITHUB_SHA_SHORT=${{ needs.extract-version.outputs.GITHUB_SHA_SHORT}}
+          GITHUB_SHA_SHORT=${{ github.sha:0:7 }}
           echo "GITHUB_SHA_SHORT=$GITHUB_SHA_SHORT" >> $GITHUB_ENV
           echo "::set-output name=GITHUB_SHA_SHORT::$GITHUB_SHA_SHORT"
   build:
@@ -95,4 +95,4 @@ jobs:
         run: |
           git tag ${{ env.DOCKER_IMAGE_NAME }}-${{ needs.extract-version.outputs.VERSION }}-${{ needs.extract-version.outputs.GITHUB_SHA_SHORT}}
           git pull --rebase
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git $DOCKER_IMAGE_NAME-$VERSION-${{ needs.extract-version.outputs.GITHUB_SHA_SHORT}}
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ env.DOCKER_IMAGE_NAME }}-${{ needs.extract-version.outputs.VERSION }}-${{ needs.extract-version.outputs.GITHUB_SHA_SHORT}}
