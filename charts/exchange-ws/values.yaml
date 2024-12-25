@@ -2,8 +2,8 @@ deployment:
   image:
     name: vanlahuynhduc/exchange-ws
     tags:
-      stable: 0.0.2-f9848b6a
-      canary: 0.0.2-169ca75c
+      stable: 0.0.2-169ca75c
+      canary: 0.0.2-
     repository:
 imageCredentials:
   registry: https://index.docker.io/v1/
