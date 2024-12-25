@@ -14,7 +14,7 @@ spec:
         - values.yaml
     path: charts/exchange-ws
     repoURL: https://github.com/huynhduc0/exchange-ws
-    targetRevision: HEAD
+    targetRevision: dev
   syncPolicy:
     automated:
       prune: true

@@ -17,11 +17,19 @@ This repository contains the source code for the Exchange Web Service.
 ## Quick Look
 The service is deployed and accessible at [exchange.itmosvn.me](http://exchange.itmosvn.me).
 you can run test with command:
+dev
  ```sh
     wscat -c "ws://exchange.itmosvn.me/ws?exchange=Binance&pair=BTC/USDT"
 ```
 ```sh
     wscat -c "ws://exchange.itmosvn.me:3000/ws?exchange=Bybit&pair=BTC/USDT"
+```
+prod:
+ ```sh
+    wscat -c "ws://wsprod.itmosvn.me/ws?exchange=Binance&pair=BTC/USDT"
+```
+```sh
+    wscat -c "ws://wsprod.itmosvn.me:3000/ws?exchange=Bybit&pair=BTC/USDT"
 ```
  
 ## Setup
@@ -59,8 +67,16 @@ The CI/CD pipeline is defined in the `.github/workflows/build.yaml` file. It inc
 3. **Extract Version**: Extracts the version from `package.json` and gets the short SHA of the commit.
 4. **Build and Push**: Builds and pushes the Docker image to Docker Hub.
 5. **Update Chart**: Updates the Helm chart values with the new image tag.
-6. **Create Tag**: Creates a tag to trigger ArgoCD.
-7. **Release to higher env**: Recommend to commit/ trigger pipline on other repo, since this best practice for argoCD
+6. **Create Tag**: Creates a tag to trigger ArgoCD, will trigger prod.
+
+
+### Argo CD Applications
+
+We have two Argo CD applications:
+![Workload for Canary on Grafana](./image/apps.png)
+- **Dev Environment**: Accessible at [exchange.itmosvn.me](http://exchange.itmosvn.me). When changes are pushed to the `dev` branch, Argo CD listens for the build and deploys to the dev environment.
+- **Prod Environment**: Accessible at [wsprod.itmosvn.me](http://wsprod.itmosvn.me). When changes are pushed to the `main` branch, a tag is created, and Argo CD triggers the deployment to the prod environment based on the new tag.
+
 ### Environment Variables
 
 The following environment variables are used in the workflow:
@@ -97,11 +113,11 @@ To test the WebSocket service using `wscat`, follow these steps:
 
 ## Monitoring
 
-We use Grafana for monitoring the service. The Grafana dashboard provides insights into the performance and health of the service.
+I use Grafana for monitoring the service. The Grafana dashboard provides insights into the performance and health of the service.
 
 ## Deployment Strategy
 
-We use Helm for managing deployments. The deployment strategy includes canary releases to ensure smooth rollouts.
+I use Helm for managing deployments. The deployment strategy includes canary releases to ensure smooth rollouts.
 
 ### Canary Deployment
 
