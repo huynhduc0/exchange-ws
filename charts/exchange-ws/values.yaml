@@ -2,7 +2,7 @@ deployment:
   image:
     name: vanlahuynhduc/exchange-ws
     tags:
-      stable: 0.0.2-169ca75c
+      stable: 0.0.2-
       canary: 0.0.2-
     repository:
 imageCredentials:
