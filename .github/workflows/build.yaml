@@ -15,7 +15,6 @@ permissions:
 jobs:
   extract-version:
     runs-on: ubuntu-latest
-    needs: setup
     outputs:
       VERSION: ${{ steps.extract_version.outputs.VERSION }}
     steps:
