@@ -114,7 +114,7 @@ ArgoCD is used for continuous delivery and deployment of the application. It mon
 ![ArgoCD Structure](./image/argocd.png)
 
 Istio is used for traffic management and observability. It allows us to control the traffic flow between services and provides insights into the service performance.
-
+![Traffic](./image/traffic.png)
 ![Pod in Namespace Istio](./image/namespace%20istio.png)
 
 The rollout strategy is defined using Argo Rollouts, which integrates with Istio to manage traffic splitting between different versions of the application. The rollout process is automated with Istio, ensuring smooth and controlled traffic shifts.
