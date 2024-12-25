@@ -21,7 +21,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: exchange.itmosvn.me
+    - host: {{ .Values.domain }}
       http:
         paths:
           - path: /

@@ -12,3 +12,4 @@ imageCredentials:
 replicas:
   min: 1
   max: 2
+domain: exchange.itmosvn.me
