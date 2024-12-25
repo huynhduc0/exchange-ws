@@ -3,17 +3,27 @@
 This repository contains the source code for the Exchange Web Service.
 
 ## Table of Contents
-
-- [Setup](#setup)
+- [Quick Look](#quick-look)
+- [Setup On Local](#setup)
 - [Usage](#usage)
 - [CI/CD Workflow](#cicd-workflow)
 - [Testing](#testing)
-- [Online Server](#online-server)
 - [Monitoring](#monitoring)
 - [Deployment Strategy](#deployment-strategy)
 - [Contributing](#contributing)
 - [License](#license)
 
+
+## Quick Look
+The service is deployed and accessible at [hihi.itmosvn.me](http://hihi.itmosvn.me).
+you can run test with command:
+ ```sh
+    wscat -c "ws://hihi.itmosvn.me/ws?exchange=Binance&pair=BTC/USDT"
+```
+```sh
+    wscat -c "ws://hihi.itmosvn.me:3000/ws?exchange=Bybit&pair=BTC/USDT"
+```
+ 
 ## Setup
 
 To set up the project locally, follow these steps:
@@ -50,7 +60,7 @@ The CI/CD pipeline is defined in the `.github/workflows/build.yaml` file. It inc
 4. **Build and Push**: Builds and pushes the Docker image to Docker Hub.
 5. **Update Chart**: Updates the Helm chart values with the new image tag.
 6. **Create Tag**: Creates a tag to trigger ArgoCD.
-
+7. **Release to higher env**: Recommend to commit/ trigger pipline on other repo, since this best practice for argoCD
 ### Environment Variables
 
 The following environment variables are used in the workflow:
@@ -85,17 +95,9 @@ To test the WebSocket service using `wscat`, follow these steps:
     ```
 3. Observe the response from the server.
 
-## Online Server
-
-The service is deployed and accessible at [hihi.itmosvn.me](http://hihi.itmosvn.me).
-
 ## Monitoring
 
 We use Grafana for monitoring the service. The Grafana dashboard provides insights into the performance and health of the service.
-
-### Grafana Dashboard
-
-To access the Grafana dashboard, navigate to the Grafana instance and log in with your credentials. The dashboard includes various metrics such as CPU usage, memory usage, and request rates.
 
 ## Deployment Strategy
 
@@ -104,16 +106,6 @@ We use Helm for managing deployments. The deployment strategy includes canary re
 ### Canary Deployment
 
 The canary deployment is defined in the Helm charts located in the `charts/exchange-ws/templates` directory. The `rollout-canary.yaml` and `rollout-stable.yaml` files define the canary and stable rollout configurations, respectively.
-
-To deploy the canary release, use the following command:
-```sh
-helm upgrade --install exchange-ws ./charts/exchange-ws --set deployment.image.tags.canary=<new-canary-tag>
-```
-
-To promote the canary release to stable, update the Helm values and deploy:
-```sh
-helm upgrade --install exchange-ws ./charts/exchange-ws --set deployment.image.tags.stable=<canary-tag>
-```
 
 ### Rollout with ArgoCD and Istio
 
@@ -133,7 +125,7 @@ The rollout strategy is defined using Argo Rollouts, which integrates with Istio
 
 1. **Initial Deployment**: The stable version of the application is deployed using the `rollout-stable.yaml` configuration.
 2. **Canary Deployment**: A new version is deployed as a canary using the `rollout-canary.yaml` configuration. Traffic is gradually shifted to the canary version based on the defined steps.
-3. **Monitoring**: The performance and health of the canary version are monitored using Grafana and Istio metrics.
+3. **Monitoring and Grafana Dashboard**: The performance and health of the canary version are monitored using Grafana and Istio metrics.
 
 ![Rollout Event](./image/rollout%20events.png)
 
