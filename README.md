@@ -15,13 +15,13 @@ This repository contains the source code for the Exchange Web Service.
 
 
 ## Quick Look
-The service is deployed and accessible at [hihi.itmosvn.me](http://hihi.itmosvn.me).
+The service is deployed and accessible at [exchange.itmosvn.me](http://exchange.itmosvn.me).
 you can run test with command:
  ```sh
-    wscat -c "ws://hihi.itmosvn.me/ws?exchange=Binance&pair=BTC/USDT"
+    wscat -c "ws://exchange.itmosvn.me/ws?exchange=Binance&pair=BTC/USDT"
 ```
 ```sh
-    wscat -c "ws://hihi.itmosvn.me:3000/ws?exchange=Bybit&pair=BTC/USDT"
+    wscat -c "ws://exchange.itmosvn.me:3000/ws?exchange=Bybit&pair=BTC/USDT"
 ```
  
 ## Setup

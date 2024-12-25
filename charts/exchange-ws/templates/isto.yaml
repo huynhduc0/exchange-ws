@@ -14,7 +14,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "hihi.itmosvn.me"
+        - "exchange.itmosvn.me"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -27,7 +27,7 @@ metadata:
 
 spec:
   hosts:
-  - "hihi.itmosvn.me"
+  - "exchange.itmosvn.me"
   gateways:
   - {{ .Release.Name }}-gateway
   http:
