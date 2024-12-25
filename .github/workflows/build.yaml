@@ -65,6 +65,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ build, extract-version ]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Update chart values
         run: |
           sed -i "s|stable:.*|stable: $(grep 'canary:' charts/exchange-ws/values.yaml | awk '{print $2}')|" charts/exchange-ws/values.yaml
@@ -85,6 +87,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ update-chart, extract-version ]
     steps:
+       - name: Checkout code
+        uses: actions/checkout@v2
       - name: Create a tag to trigger ArgoCD
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
