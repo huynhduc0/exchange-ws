@@ -10,7 +10,7 @@ spec:
       port: 3000
       targetPort: 3000
       protocol: TCP
-    - name: ws
+    - name: http-ws
       port: 3003
       targetPort: 3003
       protocol: TCP

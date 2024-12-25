@@ -17,9 +17,9 @@ spec:
       - name: {{ .Release.Name }}
         image: {{ .Values.deployment.image.name }}:{{ .Values.deployment.image.tags.canary }}
         ports:
-        - name: http-3000
+        - name: http
           containerPort: 3000
-        - name: ws-3003
+        - name: http-ws
           containerPort: 3003
   strategy:
     canary:
