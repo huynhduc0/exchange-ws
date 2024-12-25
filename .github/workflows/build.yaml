@@ -35,6 +35,9 @@ jobs:
   extract-version:
     runs-on: ubuntu-latest
     needs: setup
+    outputs:
+      VERSION: ${{ steps.extract_version.outputs.VERSION }}
+      GITHUB_SHA_SHORT: ${{ steps.vars.outputs.GITHUB_SHA_SHORT }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -47,7 +50,9 @@ jobs:
 
       - name: Get short SHA
         id: vars
-        run: echo "GITHUB_SHA_SHORT=${GITHUB_SHA::8}" >> $GITHUB_ENV
+        run: |
+          GITHUB_SHA_SHORT=${GITHUB_SHA::8}
+          echo "GITHUB_SHA_SHORT=$GITHUB_SHA_SHORT" >> $GITHUB_ENV
 
   build-and-push:
     runs-on: ubuntu-latest
