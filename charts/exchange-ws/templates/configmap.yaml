@@ -4,9 +4,9 @@ metadata:
   name: {{ .Release.Name }}-config
 data:
   config.json: |
-  {
-    "exchange": {
-      "name": "Binance",
-      "pair": "BTC/USDT"
+    {
+      "exchange": {
+        "name": "Binance",
+        "pair": "BTC/USDT"
+      }
     }
-  }
