@@ -112,6 +112,8 @@ The canary deployment is defined in the Helm charts located in the `charts/excha
 ArgoCD is used for continuous delivery and deployment of the application. It monitors the Git repository for changes and automatically applies them to the Kubernetes cluster.
 
 ![ArgoCD Structure](./image/argocd.png)
+Traffic distribue:
+![Traffic distribue](./image/traffic.png)
 
 Istio is used for traffic management and observability. It allows us to control the traffic flow between services and provides insights into the service performance.
 
