@@ -51,7 +51,7 @@ jobs:
 
       - name: Update chart values
         run: |
-          sed -i "s|stable:.*|stable: $(grep 'canary:' charts/exchange-ws/values.yaml | awk '{print $2}')" charts/exchange-ws/values.yaml
+          sed -i "s|stable:.*|stable: $(grep 'canary:' charts/exchange-ws/values.yaml | awk '{print $2}')|" charts/exchange-ws/values.yaml
           sed -i "s|canary:.*|canary: $VERSION-$GITHUB_SHA_SHORT|" charts/exchange-ws/values.yaml
 
       - name: Commit and push changes to main branch
