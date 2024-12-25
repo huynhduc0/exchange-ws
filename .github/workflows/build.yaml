@@ -36,6 +36,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Extract version from package.json
         id: extract_version
         run: |
