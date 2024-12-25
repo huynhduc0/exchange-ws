@@ -29,3 +29,10 @@ spec:
       - setWeight: 10
       - pause: {duration: 1m}
       - setWeight: 20
+  progressDeadlineSeconds: 600
+  analysis:
+    templates:
+    - templateName: {{ .Release.Name }}-analysis-template
+    args:
+    - name: canary
+      value: canary

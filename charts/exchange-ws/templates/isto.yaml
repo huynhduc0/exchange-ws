@@ -20,6 +20,11 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: {{ .Release.Name }}-virtualservice
+  namespace: dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
 spec:
   hosts:
   - "hihi.itmosvn.me"
@@ -70,6 +75,11 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: {{ .Release.Name }}-destinationrule
+  namespace: dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
 spec:
   host: {{ .Release.Name }}
   subsets:

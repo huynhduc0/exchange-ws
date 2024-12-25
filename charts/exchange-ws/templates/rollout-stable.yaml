@@ -27,3 +27,10 @@ spec:
       maxUnavailable: 0
       steps:
       - setWeight: 100
+  progressDeadlineSeconds: 600
+  analysis:
+    templates:
+    - templateName: {{ .Release.Name }}-analysis-template
+    args:
+    - name: stable
+      value: stable
