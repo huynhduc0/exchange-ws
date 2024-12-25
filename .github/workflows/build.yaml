@@ -57,7 +57,7 @@ jobs:
           echo "::set-output name=GITHUB_SHA_SHORT::$GITHUB_SHA_SHORT"
 
   build-and-push:
-    runs-on: [ubuntu-latest, arm64]
+    runs-on: [ubuntu-latest]
     needs: extract-version
     steps:
       - name: Checkout code
