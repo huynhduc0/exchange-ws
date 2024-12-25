@@ -78,7 +78,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git checkout -b dev || git checkout dev
-          git merge main
+          git merge main || {
+            git merge --abort
+            git checkout main
+            exit 1
+          }
           git branch --set-upstream-to=origin/dev dev
           git pull --rebase
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git dev
