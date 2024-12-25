@@ -2,8 +2,8 @@ deployment:
   image:
     name: vanlahuynhduc/exchange-ws
     tags:
-      stable: 0.0.2-f9848b6a
-      canary: 0.0.2-169ca75c
+      stable: 0.0.4-599d6f3f
+      canary: 0.0.4-a915d668
     repository:
 imageCredentials:
   registry: https://index.docker.io/v1/
@@ -12,3 +12,4 @@ imageCredentials:
 replicas:
   min: 1
   max: 2
+domain: exchange.itmosvn.me
