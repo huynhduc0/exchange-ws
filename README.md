@@ -78,15 +78,12 @@ To test the WebSocket service using `wscat`, follow these steps:
 
 2. Connect to the WebSocket server:
     ```sh
-    wscat -c ws://localhost:3000
+    wscat -c "ws://localhost:3000/ws?exchange=Binance&pair=BTC/USDT"
     ```
-
-3. Send a test message:
     ```sh
-    {"type": "test", "payload": "Hello, WebSocket!"}
+    wscat -c "ws://localhost:3000/ws?exchange=Bybit&pair=BTC/USDT"
     ```
-
-4. Observe the response from the server.
+3. Observe the response from the server.
 
 ## Online Server
 
@@ -122,16 +119,27 @@ helm upgrade --install exchange-ws ./charts/exchange-ws --set deployment.image.t
 
 ArgoCD is used for continuous delivery and deployment of the application. It monitors the Git repository for changes and automatically applies them to the Kubernetes cluster.
 
+![ArgoCD Structure](./image/argocd.png)
+
 Istio is used for traffic management and observability. It allows us to control the traffic flow between services and provides insights into the service performance.
 
+![Pod in Namespace Istio](./image/namespace%20istio.png)
+
 The rollout strategy is defined using Argo Rollouts, which integrates with Istio to manage traffic splitting between different versions of the application. The rollout process is automated with Istio, ensuring smooth and controlled traffic shifts.
+
+![Request Flow](./image/request.png)
 
 #### Steps for Rollout
 
 1. **Initial Deployment**: The stable version of the application is deployed using the `rollout-stable.yaml` configuration.
 2. **Canary Deployment**: A new version is deployed as a canary using the `rollout-canary.yaml` configuration. Traffic is gradually shifted to the canary version based on the defined steps.
 3. **Monitoring**: The performance and health of the canary version are monitored using Grafana and Istio metrics.
+
+![Rollout Event](./image/rollout%20events.png)
+
 4. **Promotion**: If the canary version performs well, it is promoted to stable by updating the Helm values and redeploying.
+
+![Workload for Canary on Grafana](./image/workload-canary.png)
 
 ## Contributing
 
