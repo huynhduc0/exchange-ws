@@ -63,6 +63,7 @@ jobs:
           docker buildx build --platform linux/arm/v7 -t $DOCKER_SERVER/$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$VERSION-$GITHUB_SHA_SHORT --push .
 
   update-chart:
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     needs: [ build, extract-version ]
     steps:
