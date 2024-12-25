@@ -8,8 +8,8 @@ This repository contains the source code for the Exchange Web Service.
 - [Usage](#usage)
 - [CI/CD Workflow](#cicd-workflow)
 - [Testing](#testing)
-- [Monitoring](#monitoring)
 - [Deployment Strategy](#deployment-strategy)
+- [Monitoring](#monitoring)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -111,9 +111,6 @@ To test the WebSocket service using `wscat`, follow these steps:
     ```
 3. Observe the response from the server.
 
-## Monitoring
-
-I use Grafana for monitoring the service. The Grafana dashboard provides insights into the performance and health of the service.
 
 ## Deployment Strategy
 
@@ -143,6 +140,7 @@ The rollout strategy is defined using Argo Rollouts, which integrates with Istio
 
 1. **Initial Deployment**: The stable version of the application is deployed using the `rollout-stable.yaml` configuration.
 2. **Canary Deployment**: A new version is deployed as a canary using the `rollout-canary.yaml` configuration. Traffic is gradually shifted to the canary version based on the defined steps.
+### Monitoring
 3. **Monitoring and Grafana Dashboard**: The performance and health of the canary version are monitored using Grafana and Istio metrics.
 
 ![Rollout Event](./image/rollout%20events.png)
